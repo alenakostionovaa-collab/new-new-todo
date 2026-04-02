@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'//мех перекл стр и запись ссылок
 import todo from '../components/todo.vue'
 import child from '../components/child.vue'
 
@@ -7,7 +7,7 @@ const routes = [
   { path: '/child', component: child }
 ]
 
-export default createRouter({
-  history: createWebHistory(),
+export default createRouter({//чтобы наружи исп
+  history: createWebHistory(),//отменяет стандарт обновление и вствляет наш данные
   routes
 })

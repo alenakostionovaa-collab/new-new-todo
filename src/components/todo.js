@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";//создание глобального хранилища
-import { compile, computed, ref, watch } from 'vue';
+import {  computed, ref, watch } from 'vue';
 
 
 export const todoStore = defineStore('todoStore', () => {
@@ -18,13 +18,17 @@ export const todoStore = defineStore('todoStore', () => {
 		newTodo.value = '';
 	}
 
-	const del = (index) => {
-		todos.value.splice(index, 1);
+	const del = (id) => {
+	todos.value =(todos.value.filter(todo => todo.id !==id));
 	}
 
-	const adit = (index) => {
-		const add = prompt('adit', todos.value[index].text);
-		todos.value[index].text = add;
+	const adit = (id) => {
+		const todo =(todos.value.find(todo => todo.id ===id));
+		if (todo){
+		const newText = prompt('adit',todo.text);
+		if (newText) todo.text = newText
+
+		}
 	}
 
 	const todoComputed = computed (() => {
@@ -37,19 +41,18 @@ export const todoStore = defineStore('todoStore', () => {
 			}
 		}
 	})
+
 	watch (todos, (todo) => {
 		localStorage.setItem('todo', JSON.stringify(todo) )
 		 console.log('Настройки изменились')
-	},
-
-
-	{deep:true}
+	},{deep:true}
 	)
+
 	const todoHi =localStorage.getItem('todo')
 	if(todoHi) {
 	todos.value=JSON.parse(todoHi)
 	}
-
+	const count = computed(() => todos.value.length);
 
 	return {
 		addTodo,
@@ -58,6 +61,7 @@ export const todoStore = defineStore('todoStore', () => {
 		del,
 		adit,
 		todoComputed,
-		todoHi,
+		count,
+
 	}
 })

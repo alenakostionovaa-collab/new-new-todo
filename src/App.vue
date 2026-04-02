@@ -10,3 +10,8 @@ import todo from './components/todo.vue';
   <router-link to="/child">todo done</router-link>
   <router-view></router-view>
 </template>
+<style>
+link{
+    text-decoration: none;
+}
+</style>
